@@ -21,9 +21,10 @@ def My_tree_gini(X_train, X_test, Y_train, Y_test):
     print(Y_pred[0:5])
     print("Y_pred: ")
     print(Y_test[0:5])
-    print("Accuraty is: ", accuracy_score(Y_test, Y_pred)*100)
+    
     print("Do chinh xac cho gia tri du doan: ")
-    print(confusion_matrix(Y_test,Y_pred, labels=[0,1]))
+    print("Accuraty is: ", accuracy_score(Y_test, Y_pred)*100)
+    # print(confusion_matrix(Y_test,Y_pred, labels=[0,1]))
 # train model dua  tren do loi thong tin
 def My_tree_entropy(X_train, X_test, Y_train, Y_test):
     clf_entropy = DecisionTreeClassifier(criterion="entropy", random_state=50)
@@ -35,7 +36,7 @@ def My_tree_entropy(X_train, X_test, Y_train, Y_test):
     print(Y_test[0:5])
 
     print("Do chinh xac cho gia tri du doan: ")
-    print(confusion_matrix(Y_test,Y_pred, labels=[0,1]))
+    # print(confusion_matrix(Y_test,Y_pred, labels=[0,1]))
     print("Accuraty is: ", accuracy_score(Y_test, Y_pred)*100)
 
 
