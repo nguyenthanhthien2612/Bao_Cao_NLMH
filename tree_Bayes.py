@@ -88,12 +88,14 @@ print(total/len(list_acc))
 
 
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import Perceptron
 from sklearn.model_selection import train_test_split
 acc_tree = np.array([])
 acc_bayes =np.array([])
+acc_perceptron = np.array([])
 
 for i in range(10):
-    X_train, X_test, Y_train, Y_test = train_test_split(X,Y,random_state=1000+i*5, test_size=0.2)
+    X_train, X_test, Y_train, Y_test = train_test_split(X,Y,random_state=1000+i*5, test_size=1/3.0)
     print('X train: ')
     print(X_train.head(5))
     print('Y train: ')
@@ -101,9 +103,11 @@ for i in range(10):
 
     tree_model = DecisionTreeClassifier(criterion="entropy",max_depth=10,random_state=100,min_samples_leaf=9)
     bayes_model = GaussianNB()
+    perceptron_model = Perceptron(max_iter=5,eta0=0.02)
 
     tree_model.fit(X_train,Y_train)
     bayes_model.fit(X_train,Y_train)
+    perceptron_model.fit(X_train,Y_train)
 
     y_pred_tree = tree_model.predict(X_test)
     acc_tree = np.append(acc_tree,accuracy_score(Y_test,y_pred_tree)*100)
@@ -112,6 +116,10 @@ for i in range(10):
     dudoan_bayes= bayes_model.predict(X_test)
     acc_bayes = np.append(acc_bayes,accuracy_score(Y_test,dudoan_bayes)*100)
     print('Do chinh xac tong the cua bayes dat: ', accuracy_score(Y_test,dudoan_bayes)*100)
+
+    y_pred_perceptron = perceptron_model.predict(X_test)
+    acc_perceptron = np.append(acc_perceptron,accuracy_score(Y_test,y_pred_perceptron)*100)
+    print('Do chinh xac tong the cua Perceptron dat: ', accuracy_score(Y_test,y_pred_tree)*100 )
 
 print("================So Sanh==================")
 
@@ -124,11 +132,15 @@ total_acc_bayes = np.sum(acc_bayes)
 print('Do chinh xac tong the cua trung binh cua giai thuat Bayes: ')
 print(total_acc_bayes/len(acc_bayes))
 
+total_acc_perceptron = np.sum(acc_perceptron)
+print('Do chinh xac tong the cua trung binh cua giai thuat Perceptron: ')
+print(total_acc_perceptron/len(acc_perceptron))
 
 cot_Y = [1,2,3,4,5,6,7,8,9,10]
 
 plt.plot(cot_Y, acc_tree)
 plt.plot(cot_Y,acc_bayes)
+plt.plot(cot_Y,acc_perceptron)
 plt.show()
 
 
